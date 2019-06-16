@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<taglib
+        xsi:schemaLocation="
+            http://java.sun.com/xml/ns/javaee 
+            http://java.sun.com/xml/ns/javaee/web-jsptaglibrary_2_1.xsd"
+        xmlns="http://java.sun.com/xml/ns/javaee" 
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        version="2.1">
+  <tlib-version>1.0</tlib-version>
+  <short-name>OutlawSource-HtmlHelper</short-name>
+  <uri>http://www.outlawsource.net/web/htmlhelper</uri>
+
+  <function>
+      <name>FormatCurrency</name>
+      <function-class>net.outlawsource.web.HtmlHelper</function-class>
+      <function-signature>java.lang.String FormatCurrency(java.lang.String)</function-signature>
+  </function>  
+  
+  <function>
+      <name>FormatPercent</name>
+      <function-class>net.outlawsource.web.HtmlHelper</function-class>
+      <function-signature>java.lang.String FormatPercent(java.lang.String, java.lang.String)</function-signature>
+  </function>
+  
+   <function>
+      <name>FormatPayoffTime</name>
+      <function-class>net.outlawsource.web.HtmlHelper</function-class>
+      <function-signature>java.lang.String FormatPayoffTime(java.lang.Integer)</function-signature>
+  </function>
+
+</taglib>

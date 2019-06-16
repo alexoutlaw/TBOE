@@ -1,0 +1,345 @@
+html {
+	background-color: #586266;
+	color: white;
+	font-family: 'Roboto Condensed', sans-serif;
+}
+
+body {
+	padding: 0;
+	margin: 0;
+}
+
+a {
+	color: #DAAE5A;
+}
+a:hover {
+	color: white;
+}
+
+.scroll500 {
+	max-height: 500px;
+	overflow: auto;
+}
+
+.message {
+    margin: 0;
+    font-family: monospace;
+    color: yellow;
+}
+
+.error {
+	font-family: consolas;
+	font-size: 12px;
+	color: red;
+}
+
+.positive,
+.positive:hover {
+	/* color: #149A14; */
+	color: lime;
+}
+.negative,
+.negative:hover {
+	/* color: #F32A2A; */
+	color: red;
+}
+
+.days {
+	color: #5ABABB;
+}	
+.hours {
+	color: #CEA43C;
+}
+
+/* PAGE */
+#header,
+#content,
+#footer {
+	display: block;
+	max-width: 1200px;
+	
+	margin-left: auto;
+	margin-right: auto;
+}
+
+#header {
+	display: table;
+	width: 100%;
+	background: #555555;
+	border-bottom: 1px solid darkgray;
+}
+#header * {
+	display: table-cell;
+	vertical-align: middle;
+}
+.titlewrapper {
+	width: 100%;
+	padding: 0 7px;
+}
+.sitetitle {
+	font-weight: bold;
+	font-size: 20px;
+}
+.imglink {
+	height: 30px;
+	cursor: pointer;
+}
+
+#content {
+	display: table;
+	background-color: #2C3133;				
+	height: 100%;
+	width: 100%;
+}
+
+#siteMap,
+#sidemenu,
+#main {
+	background-color: #2C3133;
+	border-bottom: 1px solid darkgray;
+}
+
+#siteMap {
+	display: table-cell;
+	border-right: 1px solid darkgray;
+}
+#sidemenu {
+	display: none;
+	position: absolute;
+	right: 0;
+	border-left: 1px solid darkgray;
+}
+#sidemenu ul,
+#siteMap ul {
+	list-style-type: none;
+	white-space: nowrap;
+	padding: 0 10px;
+}
+.sitelink {
+	color: orange;
+}
+
+#main {
+	display: table-cell;			
+	height: 100%;
+	width: 100%;
+	padding: 20px;
+}
+.pagetitle {
+	font-weight: bold;
+	font-size: 20px;
+}
+#banner {
+	padding: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+	border-bottom: 1px solid darkgray;
+	text-align: center;
+}
+
+#footer {
+	text-align: center;
+	padding: 5px;
+	padding-left: 20px;
+	padding-right: 20px;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+	.non-mobile {
+		display: none !important;
+	}
+	.mobileMenu {
+		display: table-cell !important; /* override */
+		position: absolute;
+	}
+}
+@media (min-width: 769px) {
+	.mobile {
+		display: none !important;
+	}
+}
+
+/* Card UI */
+.card, 
+.cardButton,
+.itemCard {
+	display: inline-block;
+	min-width: 250px;
+	margin: 10px;	
+	
+	color: #DAAE5A;
+	text-align: center;
+	vertical-align: middle;	
+	font-weight: bold;
+    text-decoration: none;
+    
+	background-color: #503131;
+	border: 1px solid #503131;
+    border-radius: 2px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.2),0 2px 3px rgba(0,0,0,0.05);    
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+.card:hover,
+.cardButton:hover {
+	color: white;
+	background-color: #772E2E;
+}
+.itemCard:hover {
+	background-color: #235A5A;
+}
+
+.card_menu {
+	text-align: center
+}
+.card_menu .card {	
+	padding: 35px;   
+	font-size: 25px;
+}
+
+.cardSet {
+	text-align: center;
+}
+
+.cardButton {	
+    padding: 9px 14px;
+    font-size: 14px;
+}
+
+.cardButton:hover {	
+    color: #fff;
+}
+
+.itemCard {
+    max-width: 275px;
+    padding: 5px;
+    
+    color: white;
+    font-weight: normal;
+    border: 1px black solid;
+    background: #464646; 
+    cursor: default; 
+}
+.itemCard .table {
+	display: table;
+	width: 100%;
+}
+.itemCard .topRow,
+.itemCard .bottomRow {
+	display: table-row;
+}
+.itemCard img,
+.itemCard .title,
+.itemCard .price,
+.itemCard .details {
+	display: table-cell;
+	padding: 5px;
+}
+
+.itemCard img {
+	height: 50px;
+	width: 50px;
+}
+.itemCard .title {
+	width: 100%;
+    font-size: 22px;
+    font-weight: bold;
+    vertical-align: top;
+    text-align: left;		    
+}
+.itemCard .title a {
+	text-decoration: none;
+    color: white;
+}
+.itemCard .price {
+    font-size: 20px;
+    font-weight: bold;
+    color: yellow;
+    vertical-align: middle;
+    text-align: right;
+}
+.itemCard .details {
+    display: table;
+    width: 100%;
+    margin-top: -10px;
+}
+.itemCard .details p {
+    display: table-cell;
+    text-align: right;
+    font-size: 16px;
+    padding-right: 12px;
+}
+
+.displayTable {
+	
+}
+
+.displayTable {
+	width: 100%;
+	border-collapse: collapse;
+	border: 1px solid black;
+	box-shadow: 0 2px 6px rgba(0,0,0,0.2),0 2px 3px rgba(0,0,0,0.05);
+}
+.displayTable th {
+    padding: 10px;
+    background-color: #503131;
+    border: 1px solid black;
+}
+.displayTable td {
+	text-align: left;
+    line-height: 2;
+	padding: 0 10px 0 10px;
+}
+.displayTable td+td {
+	text-align: right;
+}
+.displayTable tr:nth-child(even) {
+	background-color: #41444A;
+}
+
+.displayTable .thumbnail {
+    height: 20px;
+    width: 20px;
+    vertical-align: middle;
+    margin-right: 7px;
+    border: 1px solid black;
+}
+
+.displayTable .sortRow {
+	background-color: #5D6467;
+}
+.displayTable .sortRow a {
+	display: inline-block;
+	width: 100%;
+    cursor: pointer;
+}
+
+.displayTable form {
+	display: inline-block;
+}
+
+.displayTable input {
+	width: 45px;
+    margin-left: 5px;
+    color: white;
+    background: none;
+    border: 1px solid #848484;
+}
+
+.displayTable .plusButton {
+    font-size: 12px;
+    margin-left: 5px;
+    padding: 1px;
+    color: #DAAE5A;
+    background-color: #503131;
+    border: 1px solid black;
+    border-radius: 3px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+.displayTable .plusButton:hover {
+	color: white;
+	background-color: #772E2E;
+}	
