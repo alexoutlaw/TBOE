@@ -1,7 +1,7 @@
 <ivy-module version="2.0">
     <info organisation="outlawsource.net" module="OutlawSource"/>
     <dependencies>
-    
+    	<dependency org="javax.servlet" name="javax.servlet-api" rev="3.0.1"/>
     	<dependency org="javax.servlet" name="jstl" rev="1.2"/>
     	
     	<dependency org="mysql" name="mysql-connector-java" rev="6.0.6"/>
