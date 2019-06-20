@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import edu.tbo.data.EddbDAO;
+import edu.tbo.data.CandidateDAO;
 import edu.tbo.web.models.CandidateModel;
 
 @Component
@@ -17,7 +17,7 @@ public class CandidateMigrator {
 	private static List<String> output = new ArrayList<>();
 	
 	@Autowired
-	EddbDAO dao;
+	CandidateDAO dao;
 	
 	MigratorThread thread;
 	

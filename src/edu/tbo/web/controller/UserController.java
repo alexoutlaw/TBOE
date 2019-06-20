@@ -38,7 +38,7 @@ public class UserController {
 		try {
 			List<String> messages = new ArrayList<String>();
 			
-			UserModel dbUser = userDao.getUser(user.getUserId());//, user.getPassword());
+			UserModel dbUser = userDao.getUser(user.getUserId(), user.getPassword());
 			if(dbUser == null) {
 				messages.add("Invalid Login");
 			}
@@ -79,14 +79,14 @@ public class UserController {
 			else if(password.length() > 35 || password.length() < 4) {
 				messages.add("Password must be between 4 and 35 characters");
 			}
-			if(userDao.getUser(userId) != null) {
+			if(userDao.doesUserExist(userId)) {
 				messages.add("User account " + userId + " already exists, please try another name");
 			}
 			
 			// Add User
 			if(messages.isEmpty()) {
 				try {
-					userDao.addUser(userId, password, "webuser");
+					userDao.addUser(userId, password, "webuser", null);
 					messages.add("Account Created Succesfully");
 				}
 				catch(SQLException ex) {
@@ -94,7 +94,6 @@ public class UserController {
 				}
 			}
 			
-			// TODO: support anon users
 			MessageFilter.addUserMessage(request.getSession(), messages.toArray(new String[messages.size()]));
 				
 			return "redirect:/";	

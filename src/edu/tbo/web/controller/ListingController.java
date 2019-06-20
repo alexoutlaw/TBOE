@@ -12,14 +12,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
-import edu.tbo.data.EddbDAO;
+import edu.tbo.data.CandidateDAO;
 import edu.tbo.web.models.UserModel;
 
 @Controller
 public class ListingController {
 	
 	@Autowired
-	EddbDAO dao;
+	CandidateDAO dao;
 	
 	@RequestMapping(path = "listing", method = RequestMethod.GET)
 	public ModelAndView listing() throws SQLException {

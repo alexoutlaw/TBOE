@@ -1,17 +1,16 @@
 package edu.tbo.data;
 
-import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.Properties;
 
 import javax.servlet.ServletContext;
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import org.w3c.dom.Document;
+
+import edu.tbo.SpringAppInitalizer;
 
 @Component
 public class DatabaseManager {
@@ -27,29 +26,11 @@ public class DatabaseManager {
 			throw new SQLException("JDBC Driver Not Found");
 		}
 		
-		try {			
-			Document configXml = readConfig(cxt);
+		Properties jdbcConfig = SpringAppInitalizer.readConfig("/WEB-INF/jdbc.xml");
 
-	        url = "jdbc:mysql://" + configXml.getElementsByTagName("path").item(0).getTextContent() + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
-	        username = configXml.getElementsByTagName("username").item(0).getTextContent();
-	        password = configXml.getElementsByTagName("password").item(0).getTextContent();
-		}
-		catch(Exception ex) {
-			throw new SQLException("Unable to set JDBC Config");
-		}
-	}
-	
-	private Document readConfig(ServletContext cxt) throws SQLException {
-		try {
-			InputStream stream = cxt.getResourceAsStream("/WEB-INF/jdbc.xml");
-			DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
-	        DocumentBuilder builder = factory.newDocumentBuilder();
-	        Document doc = builder.parse(stream);
-	        return doc;
-		}
-		catch(Exception ex) {
-			throw new SQLException("Unable to read JDBC Config");
-		}
+        url = "jdbc:mysql://" + jdbcConfig.getProperty("path") + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
+        username = jdbcConfig.getProperty("username");
+        password = jdbcConfig.getProperty("password");
 	}
 	
 	public Connection getConnection() throws SQLException {

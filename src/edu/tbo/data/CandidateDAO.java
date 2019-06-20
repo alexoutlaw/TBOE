@@ -14,14 +14,15 @@ import org.springframework.stereotype.Repository;
 import edu.tbo.web.models.CandidateModel;
 
 @Repository
-public class EddbDAO {
+public class CandidateDAO {
 
 	@Autowired
 	DatabaseManager database;
 	
 	public List<CandidateModel> findCandidates(int limit) throws SQLException {
 		List<CandidateModel> models = new ArrayList<>();
-		String sql = "select b.system_id, b.id, b.name from tboe.bodies b "
+		String sql = "select b.system_id, b.id, b.name, s.x, s.y, s.z from tboe.bodies b "
+				+ "inner join tboe.systems s on b.system_id = s.id "
 				+ "left outer join tboe.candidates c on c.system_id = b.system_id and c.body_id = b.id "
 				+ "where c.body_id is null "
 				+ "limit " + limit;
@@ -37,6 +38,9 @@ public class EddbDAO {
 				model.setSystemId(rs.getInt("system_id"));
 				model.setBodyId(rs.getInt("id"));
 				model.setDisplayName(rs.getString("name"));
+				model.setX(rs.getFloat("x"));
+				model.setY(rs.getFloat("y"));
+				model.setZ(rs.getFloat("z"));
 				models.add(model);
 			}
 		}
@@ -48,7 +52,7 @@ public class EddbDAO {
 	}
 	
 	public void addCandidate(CandidateModel model) throws SQLException {
-		String sql = "insert into tboe.candidates (system_id, body_id, name) values (?,?,?)";
+		String sql = "insert into tboe.candidates (system_id, body_id, name, x, y, z) values (?,?,?,?,?,?)";
 		
 		Connection conn = null;
 		try {
@@ -58,6 +62,9 @@ public class EddbDAO {
 			stmt.setInt(1, model.getSystemId());
 			stmt.setInt(2, model.getBodyId());
 			stmt.setString(3, model.getDisplayName());
+			stmt.setFloat(4, model.getX());
+			stmt.setFloat(5, model.getY());
+			stmt.setFloat(6, model.getZ());
 			
 			stmt.executeUpdate();
 		}
@@ -69,7 +76,7 @@ public class EddbDAO {
 	public List<CandidateModel> listFreeCandidates(int limit) throws SQLException {
 		List<CandidateModel> models = new ArrayList<>();
 		String sql = "select * from tboe.candidates c "
-				+ "left outer join tboe.user_candidates uc on uc.body_id = c.body_id and uc.system_id = c.system_id "
+				+ "left outer join tboe.users_candidates uc on uc.body_id = c.body_id and uc.system_id = c.system_id "
 				+ "where uc.body_id is null "
 				+ "limit " + limit;
 		
@@ -97,7 +104,7 @@ public class EddbDAO {
 	public List<CandidateModel> listUserCandidates(String userId, int limit) throws SQLException {
 		List<CandidateModel> models = new ArrayList<>();
 		String sql = "select * from tboe.candidates c "
-				+ "join tboe.user_candidates uc on uc.body_id = c.body_id and uc.system_id = c.system_id "
+				+ "join tboe.users_candidates uc on uc.body_id = c.body_id and uc.system_id = c.system_id "
 				+ "where uc.user_id = ? "
 				+ "limit " + limit;
 		
@@ -124,7 +131,7 @@ public class EddbDAO {
 	}
 	
 	public void addUserCandidate(int systemId, int bodyId, String userId) throws SQLException {
-		String sql = "insert into tboe.user_candidates (system_id, body_id, user_id) values (?,?,?)";
+		String sql = "insert into tboe.users_candidates (system_id, body_id, user_id) values (?,?,?)";
 		
 		Connection conn = null;
 		try {
@@ -143,7 +150,7 @@ public class EddbDAO {
 	}
 	
 	public void removeUserCandidate(int systemId, int bodyId, String userId) throws SQLException {
-		String sql = "delete from tboe.user_candidates where system_id = ? and body_id = ? and user_id = ?";
+		String sql = "delete from tboe.users_candidates where system_id = ? and body_id = ? and user_id = ?";
 		
 		Connection conn = null;
 		try {

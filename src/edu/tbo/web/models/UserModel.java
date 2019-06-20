@@ -1,7 +1,7 @@
 package edu.tbo.web.models;
 
 public class UserModel {
-	private String userId, password, role;
+	private String userId, password, role, edName;
 
 	public String getUserId() {
 		return userId;
@@ -25,5 +25,13 @@ public class UserModel {
 
 	public void setRole(String role) {
 		this.role = role;
+	}
+
+	public String getEdName() {
+		return edName;
+	}
+
+	public void setEdName(String edName) {
+		this.edName = edName;
 	}
 }

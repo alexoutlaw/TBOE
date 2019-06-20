@@ -20,7 +20,7 @@
 		</javac>
 	</target>
 
-	<target name="dist" depends="compile" description="generate the distribution">
+	<target name="dist" depends="clean, compile" description="generate the distribution">
 		<mkdir dir="${dist}/lib" />
 
 		<war destfile="${build}/TBOE.war" webxml="web/WEB-INF/web.xml">

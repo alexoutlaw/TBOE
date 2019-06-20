@@ -21,6 +21,7 @@
         <dependency org="com.fasterxml.jackson.core" name="jackson-core" rev="2.8.9"/>
         <dependency org="com.fasterxml.jackson.core" name="jackson-databind" rev="2.8.9"/>
         <dependency org="com.fasterxml.jackson.core" name="jackson-annotations" rev="2.8.9"/>
+        <dependency org="org.jasypt" name="jasypt" rev="1.9.3" />
         <dependency org="commons-logging" name="commons-logging" rev="1.2"/>
         
     </dependencies>
