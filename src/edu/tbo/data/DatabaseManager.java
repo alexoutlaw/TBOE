@@ -15,6 +15,7 @@ import edu.tbo.SpringAppInitalizer;
 @Component
 public class DatabaseManager {
 	static String url = "jdbc:mysql://";
+	static String instance = "";
 	static String username = "";
 	static String password = "";
 	
@@ -29,6 +30,7 @@ public class DatabaseManager {
 		Properties jdbcConfig = SpringAppInitalizer.readConfig("/WEB-INF/jdbc.xml");
 
         url = "jdbc:mysql://" + jdbcConfig.getProperty("path") + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
+        instance = jdbcConfig.getProperty("instance");
         username = jdbcConfig.getProperty("username");
         password = jdbcConfig.getProperty("password");
 	}
@@ -37,7 +39,7 @@ public class DatabaseManager {
 		DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
 		//System.out.println("Attempting JDBC Connection: " + (username != null ? username : "<no user>") + "@" + url);
 		Connection conn = DriverManager.getConnection(url, username, password);
-		conn.setCatalog("osdb");
+		conn.setCatalog(instance);
 		return conn;
 	}
 	

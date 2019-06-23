@@ -36,7 +36,7 @@ public class AdminController {
 	}
 	
 	@RequestMapping(value = "/migrator/{action}", method = RequestMethod.POST)
-	public String migratorStart(@PathVariable String action, HttpServletRequest request) throws Exception {
+	public String migratorStart(@PathVariable("action") String action, HttpServletRequest request) throws Exception {
 		UserModel user = (UserModel) request.getSession().getAttribute("user");
 		
 		if(user == null || !user.getRole().equalsIgnoreCase("admin")) {

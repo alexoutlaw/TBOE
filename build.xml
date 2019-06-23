@@ -11,13 +11,16 @@
 
 	<target name="init">
 		<tstamp />
-		<mkdir dir="${build}" />
+		<mkdir dir="${build}/classes" />
+		<mkdir dir="${build}/web/WEB-INF" />
 	</target>
 
 	<target name="compile" depends="init" description="compile the source">
-		<javac srcdir="${src}" destdir="${build}">
+		<javac srcdir="${src}" destdir="${build}/classes">
 			<classpath refid="classpath" />
 		</javac>
+		<copy file="${src}/log4j.properties" todir="${build}/classes" />
+		<copydir src="config" dest="${build}/web/WEB-INF" />
 	</target>
 
 	<target name="dist" depends="clean, compile" description="generate the distribution">
@@ -27,8 +30,11 @@
 			<fileset dir="web">
 				<include name="**/*.*" />
 			</fileset>
+			<fileset dir="${build}/web">
+				<include name="**/*.*" />
+			</fileset>
 			<lib dir="lib/ivy" />
-			<classes dir="${build}" />
+			<classes dir="${build}/classes" />
 		</war>
 	</target>
 
