@@ -43,7 +43,7 @@ public class AdminController {
 			throw new ServletException("Not Authorized");
 		}
 		
-		switch(action) {
+		switch(action.toLowerCase()) {
 		case "start":
 			migrator.start();
 			break;

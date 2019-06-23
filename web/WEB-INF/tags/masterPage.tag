@@ -4,11 +4,13 @@
            
 <%@attribute name="title" fragment="true" %>
 <%@attribute name="head" fragment="true" %>
+<%@attribute name="refresh" type="java.lang.Integer" required="false" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+		<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+		<c:if test="${refresh ne null}"><meta http-equiv="refresh" content="${refresh}" /></c:if>
 		<link rel="shortcut icon" href="<c:url value='/res/favicon.ico'/>" />
 		<title>TBOE - <jsp:invoke fragment="title"/></title>
 			

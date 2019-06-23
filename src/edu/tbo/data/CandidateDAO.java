@@ -19,58 +19,51 @@ public class CandidateDAO {
 	@Autowired
 	DatabaseManager database;
 	
-	public List<CandidateModel> findCandidates(int limit) throws SQLException {
+	public List<CandidateModel> findCandidates(int leftId, int limit, Connection conn) throws SQLException {
 		List<CandidateModel> models = new ArrayList<>();
-		String sql = "select b.system_id, b.id, b.name, s.x, s.y, s.z from tboe.bodies b "
-				+ "inner join tboe.systems s on b.system_id = s.id "
-				+ "left outer join tboe.candidates c on c.system_id = b.system_id and c.body_id = b.id "
-				+ "where c.body_id is null "
-				+ "limit " + limit;
+		String sql = "SELECT b.id as 'body_id', b.name, s.id as 'system_id', s.x, s.y, s.z "
+				+ "FROM "+database.DATA_INSTANCE+".bodies b "
+				+ "INNER JOIN "+database.DATA_INSTANCE+".systems s on b.systemId = s.id and s.is_populated = 0 "
+				+ "LEFT OUTER JOIN "+database.APP_INSTANCE+".candidates c on c.system_id = b.systemId and c.body_id = b.id "
+				+ "WHERE c.body_id is null and left(b.id, 1) = "+leftId+" and b.subType like '%Gas Giant%' "
+				+ "LIMIT " + limit;
 		
-		Connection conn = null;
-		try {
-			conn = database.getConnection();
-			Statement stmt = conn.createStatement();
-			ResultSet rs = stmt.executeQuery(sql);
-			
-			if(rs.next()) {
-				CandidateModel model = new CandidateModel();
-				model.setSystemId(rs.getInt("system_id"));
-				model.setBodyId(rs.getInt("id"));
-				model.setDisplayName(rs.getString("name"));
-				model.setX(rs.getFloat("x"));
-				model.setY(rs.getFloat("y"));
-				model.setZ(rs.getFloat("z"));
-				models.add(model);
-			}
-		}
-		finally {
-			if(conn != null) conn.close();
+		Statement stmt = conn.createStatement();
+		ResultSet rs = stmt.executeQuery(sql);
+		
+		if(rs.next()) {
+			CandidateModel model = new CandidateModel();
+			model.setSystemId(rs.getInt("system_id"));
+			model.setBodyId(rs.getInt("body_id"));
+			model.setDisplayName(rs.getString("name"));
+			model.setX(rs.getFloat("x"));
+			model.setY(rs.getFloat("y"));
+			model.setZ(rs.getFloat("z"));
+			models.add(model);
 		}
 		
 		return models;
 	}
 	
-	public void addCandidate(CandidateModel model) throws SQLException {
-		String sql = "insert into tboe.candidates (system_id, body_id, name, x, y, z) values (?,?,?,?,?,?)";
+	public void addCandidate(List<CandidateModel> models, Connection conn) throws SQLException {
+		String sql = "insert into "+database.APP_INSTANCE+".candidates (system_id, body_id, name, x, y, z, criteria) "
+				+ "values (?,?,?,?,?,?,?)";
 		
-		Connection conn = null;
-		try {
-			conn = database.getConnection();
-			PreparedStatement stmt = conn.prepareStatement(sql);
-			
+		PreparedStatement stmt = conn.prepareStatement(sql);
+		
+		for(CandidateModel model : models) {
 			stmt.setInt(1, model.getSystemId());
 			stmt.setInt(2, model.getBodyId());
 			stmt.setString(3, model.getDisplayName());
 			stmt.setFloat(4, model.getX());
 			stmt.setFloat(5, model.getY());
 			stmt.setFloat(6, model.getZ());
+			stmt.setString(7, model.getCriteria());
 			
-			stmt.executeUpdate();
+			stmt.addBatch();
 		}
-		finally {
-			if(conn != null) conn.close();
-		}
+		
+		stmt.executeBatch();
 	}
 	
 	public List<CandidateModel> listFreeCandidates(int limit) throws SQLException {
@@ -91,6 +84,7 @@ public class CandidateDAO {
 				model.setSystemId(rs.getInt("system_id"));
 				model.setBodyId(rs.getInt("body_id"));
 				model.setDisplayName(rs.getString("name"));
+				model.setCriteria(rs.getString("criteria"));
 				models.add(model);
 			}
 		}
@@ -120,6 +114,7 @@ public class CandidateDAO {
 				model.setSystemId(rs.getInt("system_id"));
 				model.setBodyId(rs.getInt("body_id"));
 				model.setDisplayName(rs.getString("name"));
+				model.setCriteria(rs.getString("criteria"));
 				models.add(model);
 			}
 		}

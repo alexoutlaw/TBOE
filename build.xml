@@ -20,7 +20,7 @@
 			<classpath refid="classpath" />
 		</javac>
 		<copy file="${src}/log4j.properties" todir="${build}/classes" />
-		<copydir src="config" dest="${build}/web/WEB-INF" />
+		<copydir src="config/prod" dest="${build}/web/WEB-INF" />
 	</target>
 
 	<target name="dist" depends="clean, compile" description="generate the distribution">

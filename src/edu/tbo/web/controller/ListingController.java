@@ -44,7 +44,7 @@ public class ListingController {
 	}
 	
 	@RequestMapping(value = "/listing/checkout/{systemId}/{bodyId}", method = RequestMethod.POST)
-	public String checkout(@PathVariable int systemId, @PathVariable int bodyId, HttpServletRequest request) throws Exception {
+	public String checkout(@PathVariable("systemId") int systemId, @PathVariable("bodyId") int bodyId, HttpServletRequest request) throws Exception {
 		UserModel user = (UserModel) request.getSession().getAttribute("user");
 		
 		if(user == null) {
@@ -57,7 +57,7 @@ public class ListingController {
 	}
 	
 	@RequestMapping(value = "/listing/release/{systemId}/{bodyId}", method = RequestMethod.POST)
-	public String release(@PathVariable int systemId, @PathVariable int bodyId, HttpServletRequest request) throws Exception {
+	public String release(@PathVariable("systemId") int systemId, @PathVariable("bodyId") int bodyId, HttpServletRequest request) throws Exception {
 		UserModel user = (UserModel) request.getSession().getAttribute("user");
 		
 		if(user == null ) {

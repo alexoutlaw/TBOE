@@ -7,7 +7,7 @@
 	<jsp:body>
 		<table class="displayTable">
 			<tr>
-				<th colspan=4>
+				<th colspan=6>
 					Candidates
 				</th>
 			</tr>
@@ -15,6 +15,7 @@
 				<th>Name</th>
 				<th>Body ID</th>
 				<th>System ID</th>
+				<th>Criteria</th>
 				<th></th>
 			</tr>
 			<c:forEach var="model" items="${models}">
@@ -22,10 +23,13 @@
 					<td>${model.displayName}</td>
 					<td>${model.bodyId}</td>
 					<td>${model.systemId}</td>
+					<td>${model.criteria}</td>
 					<td>
-						<form method="POST" action="<c:url value="/listing/checkout/${model.systemId}/${model.bodyId}" />">
-							<button class="cardButton" type="submit">Checkout</button>
-						</form>
+						<c:if test="${user ne null}">
+							<form method="POST" action="<c:url value="/listing/checkout/${model.systemId}/${model.bodyId}" />">
+								<button class="cardButton" type="submit">Checkout</button>
+							</form>
+						</c:if>
 					</td>
 				</tr>
 			</c:forEach>

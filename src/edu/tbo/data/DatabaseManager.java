@@ -14,10 +14,11 @@ import edu.tbo.SpringAppInitalizer;
 
 @Component
 public class DatabaseManager {
-	static String url = "jdbc:mysql://";
-	static String instance = "";
-	static String username = "";
-	static String password = "";
+	String url = "jdbc:mysql://";
+	public final String APP_INSTANCE;
+	public final String DATA_INSTANCE;
+	String username;
+	String password;
 	
 	@Autowired
 	public DatabaseManager(ServletContext cxt) throws SQLException {
@@ -30,7 +31,8 @@ public class DatabaseManager {
 		Properties jdbcConfig = SpringAppInitalizer.readConfig("/WEB-INF/jdbc.xml");
 
         url = "jdbc:mysql://" + jdbcConfig.getProperty("path") + "?useLegacyDatetimeCode=false&serverTimezone=UTC";
-        instance = jdbcConfig.getProperty("instance");
+        APP_INSTANCE = jdbcConfig.getProperty("app_instance");
+        DATA_INSTANCE = jdbcConfig.getProperty("data_instance");
         username = jdbcConfig.getProperty("username");
         password = jdbcConfig.getProperty("password");
 	}
@@ -39,7 +41,7 @@ public class DatabaseManager {
 		DriverManager.registerDriver(new com.mysql.jdbc.Driver ());
 		//System.out.println("Attempting JDBC Connection: " + (username != null ? username : "<no user>") + "@" + url);
 		Connection conn = DriverManager.getConnection(url, username, password);
-		conn.setCatalog(instance);
+		conn.setCatalog(APP_INSTANCE); //default
 		return conn;
 	}
 	

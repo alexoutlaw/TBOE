@@ -2,7 +2,7 @@ package edu.tbo.web.models;
 
 public class CandidateModel {
 	private int systemId, bodyId;
-	private String displayName;
+	private String displayName, criteria;
 	private float x, y, z;
 	
 	public int getSystemId() {
@@ -41,5 +41,11 @@ public class CandidateModel {
 	}
 	public void setZ(float z) {
 		this.z = z;
+	}
+	public String getCriteria() {
+		return criteria;
+	}
+	public void setCriteria(String criteria) {
+		this.criteria = criteria;
 	}
 }

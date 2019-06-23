@@ -34,11 +34,13 @@ a:hover {
 }
 
 .positive,
+button.positive,
 .positive:hover {
 	/* color: #149A14; */
 	color: lime;
 }
 .negative,
+button.negative,
 .negative:hover {
 	/* color: #F32A2A; */
 	color: red;
